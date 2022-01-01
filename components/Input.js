@@ -79,7 +79,7 @@ function Input() {
   };
 
   return (
-    <div
+    <form
       className={`border-b border-gray-700 p-3 flex space-x-3  ${
         isLoading && "opacity-60"
       }`}
@@ -173,7 +173,7 @@ function Input() {
           </div>
         )}
       </div>
-    </div>
+    </form>
   );
 }
 
