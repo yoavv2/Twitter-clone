@@ -33,26 +33,40 @@ function Post({ id, post, postPage }) {
   const [isOpen, setIsOpen] = useRecoilState(modalState);
   const [postId, setPostId] = useRecoilState(postIdState);
   const [comments, setComments] = useState([]);
-  const [likesArray, setLikesArray] = useState([]);
-  const [isLiked, setIsLiked] = useState(false);
-
+  const [likes, setLikes] = useState([]);
+  const [liked, setLiked] = useState(false);
   const router = useRouter();
 
   useEffect(
     () =>
-      onSnapshot(collection(db, "posts", id, "likes"), (snapshot) =>
-        setLikesArray(snapshot.docs)
+      onSnapshot(
+        query(
+          collection(db, "posts", id, "comments"),
+          orderBy("timestamp", "desc")
+        ),
+        (snapshot) => setComments(snapshot.docs)
       ),
     [db, id]
   );
-  useEffect(() => {
-    setIsLiked(
-      likesArray.findIndex((like) => like.id === session?.user?.uid) !== -1
-    );
-  }, [likesArray]);
+
+  useEffect(
+    () =>
+      onSnapshot(collection(db, "posts", id, "likes"), (snapshot) =>
+        setLikes(snapshot.docs)
+      ),
+    [db, id]
+  );
+
+  useEffect(
+    () =>
+      setLiked(
+        likes.findIndex((like) => like.id === session?.user?.uid) !== -1
+      ),
+    [likes]
+  );
 
   const likePost = async () => {
-    if (isLiked) {
+    if (liked) {
       await deleteDoc(doc(db, "posts", id, "likes", session.user.uid));
     } else {
       await setDoc(doc(db, "posts", id, "likes", session.user.uid), {
@@ -61,11 +75,6 @@ function Post({ id, post, postPage }) {
     }
   };
 
-<<<<<<< HEAD
-
-=======
-  //   console.log(`post`, post);
->>>>>>> f76e2d03ba1332b3ce51bf4afe0c21812cb38409
   return (
     <div
       className="p-3 flex cursor-pointer border-b border-gray-700"
@@ -74,7 +83,7 @@ function Post({ id, post, postPage }) {
       {!postPage && (
         <img
           src={post?.userImg}
-          alt="Profile Pic"
+          alt=""
           className="h-11 w-11 rounded-full mr-4"
         />
       )}
@@ -101,10 +110,9 @@ function Post({ id, post, postPage }) {
               >
                 @{post?.tag}
               </span>
-            </div>{" "}
+            </div>
             ·{" "}
             <span className="hover:underline text-sm sm:text-[15px]">
-              {" "}
               <Moment fromNow>{post?.timestamp?.toDate()}</Moment>
             </span>
             {!postPage && (
@@ -118,27 +126,18 @@ function Post({ id, post, postPage }) {
           </div>
         </div>
         {postPage && (
-          <p className="text-[#d9d9d9] text-[15px] sm:text-base mt-0.5">
-            {post?.text}
-          </p>
+          <p className="text-[#d9d9d9] mt-0.5 text-xl">{post?.text}</p>
         )}
-        {post?.image && (
-          <img
-            src={post?.image}
-            alt="post image"
-            className="rounded-2xl max-h-[700px] object-cover mr-2"
-          />
-        )}
+        <img
+          src={post?.image}
+          alt=""
+          className="rounded-2xl max-h-[700px] object-cover mr-2"
+        />
         <div
           className={`text-[#6e767d] flex justify-between w-10/12 ${
             postPage && "mx-auto"
           }`}
         >
-<<<<<<< HEAD
-
-
-=======
->>>>>>> f76e2d03ba1332b3ce51bf4afe0c21812cb38409
           <div
             className="flex items-center space-x-1 group"
             onClick={(e) => {
@@ -157,12 +156,6 @@ function Post({ id, post, postPage }) {
             )}
           </div>
 
-<<<<<<< HEAD
-
-
-
-=======
->>>>>>> f76e2d03ba1332b3ce51bf4afe0c21812cb38409
           {session.user.uid === post?.id ? (
             <div
               className="flex items-center space-x-1 group"
@@ -192,19 +185,19 @@ function Post({ id, post, postPage }) {
             }}
           >
             <div className="icon group-hover:bg-pink-600/10">
-              {isLiked ? (
+              {liked ? (
                 <HeartIconFilled className="h-5 text-pink-600" />
               ) : (
                 <HeartIcon className="h-5 group-hover:text-pink-600" />
               )}
             </div>
-            {likesArray.length > 0 && (
+            {likes.length > 0 && (
               <span
                 className={`group-hover:text-pink-600 text-sm ${
-                  isLiked && "text-pink-600"
+                  liked && "text-pink-600"
                 }`}
               >
-                {likesArray.length}
+                {likes.length}
               </span>
             )}
           </div>

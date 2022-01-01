@@ -4,13 +4,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Moment from "react-moment";
-import {
-  onSnapshot,
-  doc,
-  addDoc,
-  collection,
-  serverTimestamp,
-} from "@firebase/firestore";
+
 import { db } from "../firebase";
 import { useSession } from "next-auth/react";
 import {
@@ -20,22 +14,22 @@ import {
   PhotographIcon,
   XIcon,
 } from "@heroicons/react/outline";
+import { doc, onSnapshot } from "firebase/firestore";
 
 function Modal() {
   const { data: session } = useSession();
   const [isOpen, setIsOpen] = useRecoilState(modalState);
   const [postId, setPostId] = useRecoilState(postIdState);
-<<<<<<< HEAD
+
   const [post, setPost] = useState({});
-  const [comment, setComment] = useState(null);
+  const [comment, setComment] = useState();
   const router = useRouter();
 
   useEffect(
     () =>
-      onSnapshot(doc(db, "posts", postId), (snapshot) => {
-        setPost(snapshot.data());
-      }),
-    [db]
+      onSnapshot(doc(db, "posts", postId), (snapshot) =>
+        setPost(snapshot.data())
+      )[db]
   );
 
   console.log(`post`, post);
@@ -105,52 +99,6 @@ function Modal() {
         </div>
       </Dialog>
     </Transition.Root>
-=======
-  const [post, setPost] = useState();
-  const [comment, setComment] = useState("");
-  const router = useRouter();
-
-  return (
-    <Transition
-      show={isOpen}
-      //  as={Fragment}
-    >
-      <Dialog onClose={() => setIsOpen(false)}>
-        {/*
-          Use one Transition.Child to apply one transition to the overlay...
-        */}
-        <Transition.Child
-          //   as={Fragment}
-          enter="ease-out duration-300"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="ease-in duration-200"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
-          <Dialog.Overlay />
-        </Transition.Child>
-
-        {/*
-          ...and another Transition.Child to apply a separate transition
-          to the contents.
-        */}
-        <Transition.Child
-          //   as={Fragment}
-          enter="ease-out duration-300"
-          enterFrom="opacity-0 scale-95"
-          enterTo="opacity-100 scale-100"
-          leave="ease-in duration-200"
-          leaveFrom="opacity-100 scale-100"
-          leaveTo="opacity-0 scale-95"
-        >
-          <Dialog.Title>Deactivate account</Dialog.Title>
-
-          {/* ... */}
-        </Transition.Child>
-      </Dialog>
-    </Transition>
->>>>>>> f76e2d03ba1332b3ce51bf4afe0c21812cb38409
   );
 }
 
