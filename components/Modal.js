@@ -150,11 +150,12 @@ function Modal() {
                     />
                     <form className="flex-grow mt-2">
                       <textarea
+                        resize="none"
                         value={comment}
                         onChange={(e) => setComment(e.target.value)}
                         placeholder="Tweet your reply"
                         rows="10"
-                        className="bg-transparent outline-none text-[#d9d9d9] text-lg placeholder-gray-500 tracking-wide w-full min-h-[80px]"
+                        className="bg-transparent outline-none text-[#d9d9d9] text-lg placeholder-gray-500 tracking-wide w-full min-h-[80px] resize-none"
                       />
                       <div className="flex items-center justify-between pt-2.5">
                         <div className="flex items-center">
