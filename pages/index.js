@@ -25,7 +25,7 @@ export default function Home({ trendingResults, followResults, providers }) {
         <Sidebar />
         {/*  Sidebar*/}
         <Feed />
-        {session.user.name}
+       
         {/*  Widgets*/}
         {isOpen && <Modal />}
       </main>

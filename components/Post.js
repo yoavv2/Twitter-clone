@@ -28,7 +28,7 @@ import { useRecoilState } from "recoil";
 import { modalState, postIdState } from "../atoms/modalAtom";
 import { db } from "../firebase";
 
-function Post({ id, post, postPage }) {
+function Post({ name, id, post, postPage }) {
   const { data: session } = useSession();
   const [isOpen, setIsOpen] = useRecoilState(modalState);
   const [postId, setPostId] = useRecoilState(postIdState);
@@ -64,7 +64,7 @@ function Post({ id, post, postPage }) {
       ),
     [likes]
   );
-
+  // console.log(`post`, post);
   const likePost = async () => {
     if (liked) {
       await deleteDoc(doc(db, "posts", id, "likes", session.user.uid));
@@ -78,7 +78,7 @@ function Post({ id, post, postPage }) {
   return (
     <div
       className="p-3 flex cursor-pointer border-b border-gray-700"
-      onClick={() => router.push(`/${id}`)}
+      onClick={() => router.push(`/${post.tag}`)}
     >
       {!postPage && (
         <img
