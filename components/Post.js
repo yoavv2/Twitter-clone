@@ -37,6 +37,7 @@ function Post({ name, id, post, postPage }) {
   const [liked, setLiked] = useState(false);
   const router = useRouter();
 
+  console.log(`postpage`, postPage);
   useEffect(
     () =>
       onSnapshot(
@@ -78,7 +79,7 @@ function Post({ name, id, post, postPage }) {
   return (
     <div
       className="p-3 flex cursor-pointer border-b border-gray-700"
-      onClick={() => router.push(`/${post.tag}`)}
+      onClick={() => router.push(`/${id}`)}
     >
       {!postPage && (
         <img
@@ -156,7 +157,7 @@ function Post({ name, id, post, postPage }) {
             )}
           </div>
 
-          {session.user.uid === post?.id ? (
+          {session?.user.uid === post?.id ? (
             <div
               className="flex items-center space-x-1 group"
               onClick={(e) => {

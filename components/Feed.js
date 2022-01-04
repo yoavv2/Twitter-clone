@@ -33,6 +33,7 @@ function Feed() {
       ),
     [db]
   );
+
   return (
     <div
       className="text-white flex-grow border-l border-r
