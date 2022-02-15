@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import {
   collection,
   deleteDoc,
@@ -37,7 +38,6 @@ function Post({ name, id, post, postPage }) {
   const [liked, setLiked] = useState(false);
   const router = useRouter();
 
-  console.log(`postpage`, postPage);
   useEffect(
     () =>
       onSnapshot(

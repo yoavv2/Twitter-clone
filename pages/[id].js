@@ -18,6 +18,7 @@ import { db } from "../firebase";
 
 import Head from "next/head";
 import { ArrowLeftIcon } from "@heroicons/react/outline";
+import Comment from "../components/Comment";
 
 const PostPage = ({ trendingResults, followResults, providers }) => {
   const { data: session } = useSession();
@@ -45,12 +46,11 @@ const PostPage = ({ trendingResults, followResults, providers }) => {
         ),
         (snapshot) => setComments(snapshot.docs)
       ),
-    [(db, id)]
+    [db, id]
   );
 
   if (!session) return <Login providers={providers} />;
 
-  console.log(`comment`, comments);
   return (
     <div>
       <Head>
@@ -72,13 +72,17 @@ const PostPage = ({ trendingResults, followResults, providers }) => {
             Tweet
           </div>
           <Post id={id} post={post} postPage />
-          <div className="pb-72">
-            {comments.map((comment) => (
-              <div key={comment.id} className="text-white">
-                {comment.comment}
-              </div>
-            ))}
-          </div>
+          {comments.length > 0 && (
+            <div className="pb-72">
+              {comments.map((comment) => (
+                <Comment
+                  key={comment.id}
+                  id={comment.id}
+                  comment={comment.data()}
+                />
+              ))}
+            </div>
+          )}
         </div>
 
         {isOpen && <Modal />}

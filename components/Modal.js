@@ -4,7 +4,8 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Moment from "react-moment";
-
+import "emoji-mart/css/emoji-mart.css";
+import { Picker } from "emoji-mart";
 import { db } from "../firebase";
 import { useSession } from "next-auth/react";
 import {
@@ -53,11 +54,10 @@ function Modal() {
 
     setIsOpen(false);
     setComment("");
-
-    // router.push(`/${postId}`);
+    // setShowEmojis(false);
+    router.push(`/${postId}`);
   };
 
-  console.log(`post`, post);
   return (
     <Transition.Root
       show={isOpen}
@@ -162,17 +162,15 @@ function Modal() {
                           <div className="icon">
                             <PhotographIcon className="text-[#1d9bf0] h-[22px]" />
                           </div>
-
                           <div className="icon rotate-90">
                             <ChartBarIcon className="text-[#1d9bf0] h-[22px]" />
                           </div>
-
                           <div className="icon">
                             <EmojiHappyIcon className="text-[#1d9bf0] h-[22px]" />
                           </div>
 
                           <div className="icon">
-                            <CalendarIcon className="text-[#1d9bf0] h-[22px]" />
+                            <CalendarIcon className="text-[#1d9bf0] h-[22px] " />
                           </div>
                         </div>
 
