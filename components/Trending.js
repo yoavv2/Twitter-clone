@@ -20,6 +20,7 @@ function Trending({ result }) {
       </div>
 
       {result.img ? (
+        // eslint-disable-next-line jsx-a11y/alt-text
         <Image
           src={result.img}
           width={70}
