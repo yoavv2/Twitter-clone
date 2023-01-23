@@ -39,6 +39,7 @@ function Widgets({ trendingResults, followResults = [] }) {
           >
             {/* eslint-disable-next-line jsx-a11y/alt-text */}
             {result.userImg && (
+              //  eslint-disable-next-line jsx-a11y/alt-text
               <Image
                 width={50}
                 height={50}

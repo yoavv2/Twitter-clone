@@ -10,7 +10,7 @@ import Widgets from '../components/Widgets';
 
 export default function Home({ trendingResults, followResults, providers }) {
   const { data: session } = useSession();
-  const [isOpen, setIsOpen] = useRecoilState(modalState);
+  const [isOpen] = useRecoilState(modalState);
   if (!session) return <Login providers={providers} />;
   return (
     <>
@@ -21,7 +21,7 @@ export default function Home({ trendingResults, followResults, providers }) {
       </Head>
       <main className='bg-black min-h-screen flex max-w-[1500px] mx-auto'>
         <Sidebar />
-      
+
         <Feed />
 
         <Widgets
@@ -62,25 +62,13 @@ export async function getServerSideProps(context) {
     },
   ];
   const followResults = [
+    { userImg: 'https://rb.gy/urakiy', username: 'SpaceX', tag: '@SpaceX' },
     {
-      heading: 'T20 World Cup 2021 Â· LIVE',
-      description:
-        'NZvAUS: New Zealand and Australia clash in the T20 World Cup final',
-      img: 'https://rb.gy/d9yjtu',
-      tags: ['#T20WorldCupFinal, ', 'Kane Williamson'],
+      userImg: 'https://rb.gy/aluxgh',
+      username: 'Elon Musk',
+      tag: '@elonmusk',
     },
-    {
-      heading: 'Trending in United Arab Emirates',
-      description: '#earthquake',
-      img: 'https://rb.gy/jvuy4v',
-      tags: ['#DubaiAirshow, ', '#gessdubai'],
-    },
-    {
-      heading: 'Trending in Digital Creators',
-      description: 'tubbo and quackity',
-      img: '',
-      tags: ['QUACKITY AND TUBBO,'],
-    },
+    { userImg: 'https://rb.gy/zyvazm', username: 'Tesla', tag: '@Tesla' },
   ];
 
   const providers = await getProviders();
@@ -89,7 +77,7 @@ export async function getServerSideProps(context) {
   return {
     props: {
       trendingResults,
-      // followResults,
+      followResults,
       providers,
       session,
     },
