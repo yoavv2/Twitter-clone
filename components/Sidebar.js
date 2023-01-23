@@ -12,13 +12,17 @@ import {
   DotsCircleHorizontalIcon,
   DotsHorizontalIcon,
 } from '@heroicons/react/outline';
+import { useRouter } from 'next/router';
 
 function Sidebar() {
   const { data: session } = useSession();
-
+  const router = useRouter();
   return (
     <section className='hidden sm:flex flex-col items-center xl:items-start xl:w-[340px] p-2 fixed h-full'>
-      <div className='flex items-center justify-center w-14 h-14 hoverAnimation p-0 xl:ml-24'>
+      <div
+        className='flex items-center justify-center w-14 h-14 hoverAnimation p-0 xl:ml-24'
+        onClick={() => router.push('/')}
+      >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src='https://rb.gy/ogau5a'
@@ -27,7 +31,9 @@ function Sidebar() {
         />
       </div>
       <div className='space-y-2.5 mt-4 mb-2.5 xl:ml-24'>
-        <SidebarLink text='Home' Icon={HomeIcon} active />
+        <div onClick={() => router.push('/')}>
+          <SidebarLink text='Home' Icon={HomeIcon} active />
+        </div>
         <SidebarLink text='Explore' Icon={HashtagIcon} />
         <SidebarLink text='Notifications' Icon={BellIcon} />
         <SidebarLink text='Messages' Icon={InboxIcon} />
