@@ -1,5 +1,4 @@
 /* eslint-disable jsx-a11y/alt-text */
-import Image from 'next/image';
 import SidebarLink from './SidebarLink';
 import { HomeIcon } from '@heroicons/react/solid';
 import { useSession, signOut } from 'next-auth/react';
@@ -20,6 +19,7 @@ function Sidebar() {
   return (
     <section className='hidden sm:flex flex-col items-center xl:items-start xl:w-[340px] p-2 fixed h-full'>
       <div className='flex items-center justify-center w-14 h-14 hoverAnimation p-0 xl:ml-24'>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src='https://rb.gy/ogau5a'
           alt='twitter-logo'

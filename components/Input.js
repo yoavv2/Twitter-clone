@@ -83,6 +83,7 @@ function Input() {
         isLoading && 'opacity-60'
       }`}
     >
+      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={session.user.image}
         alt='profile pic'
@@ -109,6 +110,7 @@ function Input() {
               >
                 <XIcon className='text-white h-5' />
               </div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={selectedFile}
                 alt=''
