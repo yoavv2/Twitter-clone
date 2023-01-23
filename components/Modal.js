@@ -1,7 +1,7 @@
 import { useRecoilState } from 'recoil';
 import { modalState, postIdState } from '../atoms/modalAtom';
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useEffect, useState } from 'react';
+import React from 'react';
 import { useRouter } from 'next/router';
 import Moment from 'react-moment';
 import 'emoji-mart/css/emoji-mart.css';
@@ -28,17 +28,17 @@ function Modal() {
   const { data: session } = useSession();
   const [isOpen, setIsOpen] = useRecoilState(modalState);
   const [postId, setPostId] = useRecoilState(postIdState);
-
-  const [post, setPost] = useState({});
-  const [comment, setComment] = useState('');
+  const [showEmojis, setShowEmojis] = React.useState(false);
+  const [post, setPost] = React.useState({});
+  const [comment, setComment] = React.useState('');
   const router = useRouter();
 
-  useEffect(
+  React.useEffect(
     () =>
       onSnapshot(doc(db, 'posts', postId), (snapshot) => {
         setPost(snapshot.data());
       }),
-    [db]
+    [postId]
   );
 
   const sendComment = async (e) => {
@@ -54,8 +54,17 @@ function Modal() {
 
     setIsOpen(false);
     setComment('');
-    // setShowEmojis(false);
+    setShowEmojis(false);
     router.push(`/${postId}`);
+  };
+
+  const addEmoji = (e) => {
+    let sym = e.unified.split('-');
+    let codesArray = [];
+    sym.forEach((el) => codesArray.push('0x' + el));
+    let emoji = String.fromCodePoint(...codesArray);
+    setComment(comment + emoji);
+    setShowEmojis(false);
   };
 
   return (
@@ -168,7 +177,10 @@ function Modal() {
                           <div className='icon rotate-90'>
                             <ChartBarIcon className='text-[#1d9bf0] h-[22px]' />
                           </div>
-                          <div className='icon'>
+                          <div
+                            className='icon'
+                            onClick={() => setShowEmojis(true)}
+                          >
                             <EmojiHappyIcon className='text-[#1d9bf0] h-[22px]' />
                           </div>
 
@@ -176,7 +188,18 @@ function Modal() {
                             <CalendarIcon className='text-[#1d9bf0] h-[22px] ' />
                           </div>
                         </div>
-
+                        {showEmojis && (
+                          <Picker
+                            onSelect={addEmoji}
+                            style={{
+                              position: 'absolute',
+                              top: 50,
+                              maxWidth: '320px',
+                              borderRadius: '20px',
+                            }}
+                            theme='dark'
+                          />
+                        )}
                         <button
                           type='submit'
                           onClick={sendComment}

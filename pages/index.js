@@ -21,7 +21,7 @@ export default function Home({ trendingResults, followResults, providers }) {
       </Head>
       <main className='bg-black min-h-screen flex max-w-[1500px] mx-auto'>
         <Sidebar />
-        {/*  Sidebar*/}
+      
         <Feed />
 
         <Widgets
@@ -33,22 +33,99 @@ export default function Home({ trendingResults, followResults, providers }) {
     </>
   );
 }
+
 export async function getServerSideProps(context) {
-  const trendingResults = await fetch('https://jsonkeeper.com/b/NKEV').then(
-    (res) => res.json()
-  );
-  const followResults = await fetch('https://jsonkeeper.com/b/WWMJ').then(
-    (res) => res.json()
-  );
+  // const results = await Promise.allSettled([
+  //   fetchData('https://jsonkeeper.com/b/WWMJ'),
+  //   fetchData('https://jsonkeeper.com/b/1HOZ'),
+  // ]);
+  // const [trendingResults, followResults] = results;
+  const trendingResults = [
+    {
+      heading: 'T20 World Cup 2021 Â· LIVE',
+      description:
+        'NZvAUS: New Zealand and Australia clash in the T20 World Cup final',
+      img: 'https://rb.gy/d9yjtu',
+      tags: ['#T20WorldCupFinal, ', 'Kane Williamson'],
+    },
+    {
+      heading: 'Trending in United Arab Emirates',
+      description: '#earthquake',
+      img: 'https://rb.gy/jvuy4v',
+      tags: ['#DubaiAirshow, ', '#gessdubai'],
+    },
+    {
+      heading: 'Trending in Digital Creators',
+      description: 'tubbo and quackity',
+      img: '',
+      tags: ['QUACKITY AND TUBBO,'],
+    },
+  ];
+  const followResults = [
+    {
+      heading: 'T20 World Cup 2021 Â· LIVE',
+      description:
+        'NZvAUS: New Zealand and Australia clash in the T20 World Cup final',
+      img: 'https://rb.gy/d9yjtu',
+      tags: ['#T20WorldCupFinal, ', 'Kane Williamson'],
+    },
+    {
+      heading: 'Trending in United Arab Emirates',
+      description: '#earthquake',
+      img: 'https://rb.gy/jvuy4v',
+      tags: ['#DubaiAirshow, ', '#gessdubai'],
+    },
+    {
+      heading: 'Trending in Digital Creators',
+      description: 'tubbo and quackity',
+      img: '',
+      tags: ['QUACKITY AND TUBBO,'],
+    },
+  ];
+
   const providers = await getProviders();
   const session = await getSession(context);
 
   return {
     props: {
       trendingResults,
-      followResults,
+      // followResults,
       providers,
       session,
     },
   };
+}
+
+async function fetchData(url) {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+    return await response.json();
+  } catch (error) {
+    throw new Error(`Failed to fetch data from the URL: ${error.message}`);
+  }
+}
+
+// Generic function to throw if any errors occured, or return the responses
+// if no errors happened
+function handleResults(results) {
+  const errors = results
+    .filter((result) => result.status === 'rejected')
+    .map((result) => result.reason);
+
+  if (errors.length) {
+    // Aggregate all errors into one
+    throw new AggregateError(errors);
+  }
+
+  return results.map((result) => result.value);
+}
+
+async function getPageData() {
+  const results = await Promise.allSettled([fetchUser(), fetchProduct()]);
+
+  // Nicer on the eyes
+  const [user, product] = handleResults(results);
 }

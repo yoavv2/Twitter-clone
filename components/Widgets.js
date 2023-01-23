@@ -1,7 +1,7 @@
 import { SearchIcon } from '@heroicons/react/outline';
 import Image from 'next/image';
 import Trending from './Trending';
-function Widgets({ trendingResults, followResults }) {
+function Widgets({ trendingResults, followResults = [] }) {
   return (
     <div className='hidden lg:inline ml-8 xl:w-[450px] py-1 space-y-5'>
       <div className='sticky top-0 py-1.5 bg-black z-50 w-11/12 xl:w-9/12'>
@@ -38,13 +38,15 @@ function Widgets({ trendingResults, followResults }) {
             key={index}
           >
             {/* eslint-disable-next-line jsx-a11y/alt-text */}
-            <Image
-              src={result.userImg}
-              width={50}
-              height={50}
-              objectFit='cover'
-              className='rounded-full'
-            />
+            {result.userImg && (
+              <Image
+                width={50}
+                height={50}
+                src={result.userImg}
+                objectFit='cover'
+                className='rounded-full'
+              />
+            )}
             <div className='ml-4 leading-5 group '>
               <h4 className='font-bold group-hover:underline'>
                 {result.username}
