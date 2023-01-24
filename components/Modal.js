@@ -118,8 +118,6 @@ function Modal() {
             leaveFrom='opacity-100 translate-y-0 sm:scale-100'
             leaveTo='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
           >
-            {/* ... */}
-
             <dialog
               className='inline-block align-bottom bg-black rounded-2xl
             text-left overflow-hidden shadow-xl transform transition-all
@@ -192,7 +190,7 @@ function Modal() {
                         rows='10'
                         className='bg-transparent outline-none text-[#d9d9d9] text-lg placeholder-gray-500 tracking-wide w-full min-h-[80px] resize-none'
                       />
-                      <div className='flex items-center justify-between pt-2.5'>
+                      <div className='flex items-center justify-between pt-2.5 relative'>
                         <div className='flex items-center'>
                           <div
                             className='icon'
@@ -211,7 +209,7 @@ function Modal() {
                           </div>
                           <div
                             className='icon'
-                            onClick={() => setShowEmojis(true)}
+                            onClick={() => setShowEmojis((prev) => !prev)}
                           >
                             <EmojiHappyIcon className='text-[#1d9bf0] h-[22px]' />
                           </div>
@@ -225,7 +223,8 @@ function Modal() {
                             onSelect={addEmoji}
                             style={{
                               position: 'absolute',
-                              top: 50,
+                              top: -430,
+                              right: 12,
                               maxWidth: '320px',
                               borderRadius: '20px',
                             }}
