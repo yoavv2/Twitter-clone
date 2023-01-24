@@ -111,10 +111,9 @@ function Modal() {
           </Transition.Child>
 
           <Transition.Child
-            // as={Fragment}
             enter='ease-out duration-300'
-            enterFrom='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
-            enterTo='opacity-100 translate-y-0 sm:scale-100'
+            enterFrom='opacity-0 sm:translate-y-0 sm:scale-95'
+            enterTo='opacity-100 sm:scale-100'
             leave='ease-in duration-200'
             leaveFrom='opacity-100 translate-y-0 sm:scale-100'
             leaveTo='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
@@ -122,9 +121,9 @@ function Modal() {
             {/* ... */}
 
             <dialog
-              className='inline-block align-bottom bg-black rounded-2xl 
-            text-left overflow-hidden shadow-xl transform transition-all 
-            sm:my-8 sm:align-middle sm:max-w-xl sm:w-full'
+              className='inline-block align-bottom bg-black rounded-2xl
+            text-left overflow-hidden shadow-xl transform transition-all
+            sm:my-8 sm:align-middle sm:max-w-xl sm:w-full '
             >
               <div
                 className='flex items-center px-1.5 py-2 border-b
