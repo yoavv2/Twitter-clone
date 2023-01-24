@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   collection,
   doc,
@@ -7,7 +8,6 @@ import {
 } from '@firebase/firestore';
 import { getProviders, getSession, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { modalState } from '../atoms/modalAtom';
 import Modal from '../components/Modal';
@@ -22,14 +22,13 @@ import Comment from '../components/Comment';
 
 const PostPage = ({ trendingResults, followResults, providers }) => {
   const { data: session } = useSession();
-  const [isOpen, setIsOpen] = useRecoilState(modalState);
-  const [post, setPost] = useState();
-  const [comments, setComments] = useState([]);
+  const [isOpen] = useRecoilState(modalState);
+  const [post, setPost] = React.useState();
+  const [comments, setComments] = React.useState([]);
   const router = useRouter();
   const { id } = router.query;
-  // console.log(`id`, router);
 
-  useEffect(
+  React.useEffect(
     () =>
       onSnapshot(doc(db, 'posts', id), (snapshot) => {
         setPost(snapshot.data());
@@ -37,7 +36,7 @@ const PostPage = ({ trendingResults, followResults, providers }) => {
     [id]
   );
 
-  useEffect(
+  React.useEffect(
     () =>
       onSnapshot(
         query(
@@ -92,7 +91,6 @@ const PostPage = ({ trendingResults, followResults, providers }) => {
           trendingResults={trendingResults}
           followResults={followResults}
         />
-
         {isOpen && <Modal />}
       </main>
     </div>

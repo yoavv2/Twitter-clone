@@ -19,7 +19,7 @@ import {
 import { getDownloadURL, ref, uploadString } from '@firebase/storage';
 import { useSession } from 'next-auth/react';
 
-function Input() {
+function Input({ placeholder }) {
   const [input, setInput] = React.useState('');
   const [selectedFile, setSelectedFile] = React.useState(null);
   const [showEmojis, setShowEmojis] = React.useState(false);
@@ -95,7 +95,7 @@ function Input() {
           <textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="What's happening?"
+            placeholder={placeholder}
             rows='2'
             className='bg-transparent outline-none text-[#d9d9d9]
              text-lg placeholder-gray-500 tracking-wide w-full min-h-[50px]'

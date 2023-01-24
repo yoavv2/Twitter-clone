@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import Moment from 'react-moment';
 import 'emoji-mart/css/emoji-mart.css';
 import { Picker } from 'emoji-mart';
-import { db } from '../firebase';
+import { db, storage } from '../firebase';
 import { useSession } from 'next-auth/react';
 import {
   CalendarIcon,
@@ -22,17 +22,19 @@ import {
   onSnapshot,
   serverTimestamp,
 } from 'firebase/firestore';
+import { getDownloadURL, ref, uploadString } from '@firebase/storage';
 import Link from 'next/link';
 
 function Modal() {
   const { data: session } = useSession();
   const [isOpen, setIsOpen] = useRecoilState(modalState);
-  const [postId, setPostId] = useRecoilState(postIdState);
+  const [postId] = useRecoilState(postIdState);
   const [showEmojis, setShowEmojis] = React.useState(false);
   const [post, setPost] = React.useState({});
   const [comment, setComment] = React.useState('');
+  const [selectedFile, setSelectedFile] = React.useState(null);
   const router = useRouter();
-
+  const filePickerRef = React.useRef(null);
   React.useEffect(
     () =>
       onSnapshot(doc(db, 'posts', postId), (snapshot) => {
@@ -44,7 +46,9 @@ function Modal() {
   const sendComment = async (e) => {
     e.preventDefault();
 
-    await addDoc(collection(db, 'posts', postId, 'comments'), {
+    const docRef = await addDoc(collection(db, 'posts', postId, 'comments'), {
+      userId: session.user.uid,
+      postId: postId,
       comment: comment,
       username: session.user.name,
       tag: session.user.tag,
@@ -52,6 +56,17 @@ function Modal() {
       timestamp: serverTimestamp(),
     });
 
+    const imageRef = ref(storage, `posts/${docRef.id}/image`);
+
+    if (selectedFile) {
+      await uploadString(imageRef, selectedFile, 'data_url').then(async () => {
+        const downloadURL = await getDownloadURL(imageRef);
+
+        await updateDoc(doc(db, 'posts', postId, 'comments', docRef.id), {
+          image: downloadURL,
+        });
+      });
+    }
     setIsOpen(false);
     setComment('');
     setShowEmojis(false);
@@ -65,6 +80,15 @@ function Modal() {
     let emoji = String.fromCodePoint(...codesArray);
     setComment(comment + emoji);
     setShowEmojis(false);
+  };
+
+  const addImageToPost = (e) => {
+    const reader = new FileReader();
+    if (!e.target.files[0]) return;
+    reader.readAsDataURL(e.target.files[0]);
+    reader.onload = (readerEvent) => {
+      setSelectedFile(readerEvent.target.result);
+    };
   };
 
   return (
@@ -97,7 +121,7 @@ function Modal() {
           >
             {/* ... */}
 
-            <div
+            <dialog
               className='inline-block align-bottom bg-black rounded-2xl 
             text-left overflow-hidden shadow-xl transform transition-all 
             sm:my-8 sm:align-middle sm:max-w-xl sm:w-full'
@@ -142,15 +166,15 @@ function Modal() {
                       <p className='text-[#d9d9d9] text-[15px] sm:text-base'>
                         {post?.text}
                       </p>
-                      {/* <p className="ml-1.5 text-xs sm:text-[15px]">
+                      <p className='ml-1.5 text-xs sm:text-[15px]'>
                         Replying to
                         <Link
-                          href="/hello"
-                          className="ml-1.5 text-xm sm:text-[15px] text-blue"
+                          href='/hello'
+                          className='ml-1.5 text-xm sm:text-[15px] text-blue'
                         >
-                          @{post?.tag} <a>Home</a>
+                          <a> @{post?.tag}</a>
                         </Link>
-                      </p> */}
+                      </p>
                     </div>
                   </div>
                   <div className='mt-7 flex space-x-3 w-full'>
@@ -171,8 +195,17 @@ function Modal() {
                       />
                       <div className='flex items-center justify-between pt-2.5'>
                         <div className='flex items-center'>
-                          <div className='icon'>
+                          <div
+                            className='icon'
+                            onClick={() => filePickerRef.current.click()}
+                          >
                             <PhotographIcon className='text-[#1d9bf0] h-[22px]' />
+                            <input
+                              type='file'
+                              ref={filePickerRef}
+                              hidden
+                              onChange={addImageToPost}
+                            />
                           </div>
                           <div className='icon rotate-90'>
                             <ChartBarIcon className='text-[#1d9bf0] h-[22px]' />
@@ -216,7 +249,7 @@ function Modal() {
                   </div>
                 </div>
               </div>
-            </div>
+            </dialog>
           </Transition.Child>
         </div>
       </Dialog>

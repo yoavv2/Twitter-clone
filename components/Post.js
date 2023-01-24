@@ -29,10 +29,10 @@ import { useRecoilState } from 'recoil';
 import { modalState, postIdState } from '../atoms/modalAtom';
 import { db } from '../firebase';
 
-function Post({ name, id, post, postPage }) {
+function Post({ id, post, postPage }) {
   const { data: session } = useSession();
-  const [isOpen, setIsOpen] = useRecoilState(modalState);
-  const [postId, setPostId] = useRecoilState(postIdState);
+  const [setIsOpen] = useRecoilState(modalState);
+  const [setPostId] = useRecoilState(postIdState);
   const [comments, setComments] = React.useState([]);
   const [likes, setLikes] = React.useState([]);
   const [liked, setLiked] = React.useState(false);
@@ -129,11 +129,13 @@ function Post({ name, id, post, postPage }) {
         {postPage && (
           <p className='text-[#d9d9d9] mt-0.5 text-xl'>{post?.text}</p>
         )}
-        <img
-          src={post?.image}
-          alt=''
-          className='rounded-2xl max-h-[700px] object-cover mr-2'
-        />
+        {post?.image && (
+          <img
+            src={post?.image}
+            alt='post_image'
+            className='rounded-2xl max-h-[700px] object-cover mr-2'
+          />
+        )}
         <div
           className={`text-[#6e767d] flex justify-between w-10/12 ${
             postPage && 'mx-auto'

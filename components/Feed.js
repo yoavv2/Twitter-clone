@@ -30,7 +30,7 @@ function Feed() {
           <SparklesIcon className='h-5 text-white' />
         </div>
       </div>
-      <Input />
+      <Input placeholder='Whats happening?' />
       <div className='pb-72'>
         {posts.map((post) => (
           <Post key={post.id} name={post.tag} id={post.id} post={post.data()} />
