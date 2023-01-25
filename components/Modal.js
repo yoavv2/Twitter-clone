@@ -35,7 +35,7 @@ function Modal() {
   const [selectedFile, setSelectedFile] = React.useState(null);
   const router = useRouter();
   const filePickerRef = React.useRef(null);
-  
+
   React.useEffect(
     () =>
       onSnapshot(doc(db, 'posts', postId), (snapshot) => {
