@@ -26,15 +26,19 @@ import {
 import { getDownloadURL, ref, uploadString } from '@firebase/storage';
 import Link from 'next/link';
 import { addEmoji } from '../utils/addEmoji';
+import { addImage } from '../utils/addImage';
 
 function Modal() {
   const { data: session } = useSession();
-  const [isOpen, setIsOpen] = useRecoilState(modalState);
+
   const [postId] = useRecoilState(postIdState);
-  const [showEmojis, setShowEmojis] = React.useState(false);
+  const [isOpen, setIsOpen] = useRecoilState(modalState);
+
   const [post, setPost] = React.useState({});
   const [comment, setComment] = React.useState('');
+  const [showEmojis, setShowEmojis] = React.useState(false);
   const [selectedFile, setSelectedFile] = React.useState(null);
+
   const router = useRouter();
   const filePickerRef = React.useRef(null);
 
@@ -65,13 +69,6 @@ function Modal() {
     );
 
     if (selectedFile) {
-      console.log(
-        '%cMyProject%cline:61%cimageRef',
-        'color:#fff;background:#ee6f57;padding:3px;border-radius:2px',
-        'color:#fff;background:#1f3c88;padding:3px;border-radius:2px',
-        'color:#fff;background:rgb(60, 79, 57);padding:3px;border-radius:2px',
-        'lol'
-      );
       await uploadString(imageRef, selectedFile, 'data_url').then(async () => {
         const downloadURL = await getDownloadURL(imageRef);
 
@@ -91,24 +88,14 @@ function Modal() {
     setShowEmojis(false);
   };
 
-  const addImageToPost = (e) => {
-    const reader = new FileReader();
-    if (!e.target.files[0]) return;
-    reader.readAsDataURL(e.target.files[0]);
-    reader.onload = (readerEvent) => {
-      setSelectedFile(readerEvent.target.result);
-    };
+  const handleAddImageToPost = (e) => {
+    addImage(e, setSelectedFile);
   };
-
   return (
-    <Transition.Root
-      show={isOpen}
-      // as={Fragment}
-    >
+    <Transition.Root show={isOpen}>
       <Dialog as='div' className='fixed z-50 inset-0 pt-8' onClose={setIsOpen}>
         <div className='flex items-start justify-center min-h-[800px] sm:min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0'>
           <Transition.Child
-            // as={Fragment}
             enter='ease-out duration-300'
             enterFrom='opacity-0'
             enterTo='opacity-100'
@@ -146,7 +133,6 @@ function Modal() {
                 className='flex px-4 pt-5 pb-2.5 
                 sm:px-6'
               >
-            
                 <div className='w-full'>
                   <div className='text-[#6e767d] flex gap-x-3 relative'>
                     <span className='w-0.5 h-full z-[-1] absolute left-5 top-11 bg-gray-600' />
@@ -228,7 +214,7 @@ function Modal() {
                               type='file'
                               ref={filePickerRef}
                               hidden
-                              onChange={addImageToPost}
+                              onChange={handleAddImageToPost}
                             />
                           </div>
                           <div className='icon rotate-90'>

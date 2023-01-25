@@ -19,6 +19,7 @@ import {
 import { getDownloadURL, ref, uploadString } from '@firebase/storage';
 import { useSession } from 'next-auth/react';
 import { addEmoji } from '../utils/addEmoji';
+import { addImage } from '../utils/addImage';
 
 function Input({ placeholder }) {
   const [input, setInput] = React.useState('');
@@ -43,13 +44,6 @@ function Input({ placeholder }) {
 
     const imageRef = ref(storage, `posts/${docRef.id}/image`);
     if (selectedFile) {
-      console.log(
-        '%cMyProject%cline:61%cimageRef',
-        'color:#fff;background:#ee6f57;padding:3px;border-radius:2px',
-        'color:#fff;background:#1f3c88;padding:3px;border-radius:2px',
-        'color:#fff;background:rgb(60, 79, 57);padding:3px;border-radius:2px',
-        imageRef
-      );
       await uploadString(imageRef, selectedFile, 'data_url').then(async () => {
         const downloadURL = await getDownloadURL(imageRef);
         await updateDoc(doc(db, 'posts', docRef.id), {
@@ -64,15 +58,8 @@ function Input({ placeholder }) {
     setShowEmojis(false);
   };
 
-  const addImageToPost = (e) => {
-    const reader = new FileReader();
-    if (e.target.files[0]) {
-      reader.readAsDataURL(e.target.files[0]);
-    }
-
-    reader.onload = (readerEvent) => {
-      setSelectedFile(readerEvent.target.result);
-    };
+  const handleAddImageToPost = (e) => {
+    addImage(e, setSelectedFile);
   };
 
   const handleAddEmoji = (e) => {
@@ -134,7 +121,7 @@ function Input({ placeholder }) {
                   type='file'
                   ref={filePickerRef}
                   hidden
-                  onChange={addImageToPost}
+                  onChange={handleAddImageToPost}
                 />
               </div>
 
