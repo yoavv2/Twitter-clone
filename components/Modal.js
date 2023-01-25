@@ -1,7 +1,8 @@
+import React from 'react';
+import { isMobile } from 'react-device-detect';
 import { useRecoilState } from 'recoil';
 import { modalState, postIdState } from '../atoms/modalAtom';
 import { Dialog, Transition } from '@headlessui/react';
-import React from 'react';
 import { useRouter } from 'next/router';
 import Moment from 'react-moment';
 import 'emoji-mart/css/emoji-mart.css';
@@ -183,7 +184,7 @@ function Modal() {
                         value={comment}
                         onChange={(e) => setComment(e.target.value)}
                         placeholder='Tweet your reply'
-                        rows='10'
+                        rows={`${isMobile ? '' : '10'}`}
                         className='bg-transparent outline-none text-[#d9d9d9] text-lg placeholder-gray-500 tracking-wide w-full min-h-[80px] resize-none'
                       />
                       {selectedFile && (
@@ -203,6 +204,7 @@ function Modal() {
                           />
                         </div>
                       )}
+
                       <div className='flex items-center justify-between pt-2.5 relative'>
                         <div className='flex items-center'>
                           <div
