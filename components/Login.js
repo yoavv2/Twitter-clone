@@ -1,6 +1,13 @@
 import { signIn } from 'next-auth/react';
 
 function Login({ providers }) {
+  console.log(
+    '%cMyProject%cline:3%cproviders',
+    'color:#fff;background:#ee6f57;padding:3px;border-radius:2px',
+    'color:#fff;background:#1f3c88;padding:3px;border-radius:2px',
+    'color:#fff;background:rgb(178, 190, 126);padding:3px;border-radius:2px',
+    providers
+  );
   return (
     <div className='flex flex-col items-center space-y-20 pt-48'>
       {/* eslint-disable-next-line jsx-a11y/alt-text, @next/next/no-img-element */}
