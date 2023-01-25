@@ -18,6 +18,7 @@ import {
 } from '@firebase/firestore';
 import { getDownloadURL, ref, uploadString } from '@firebase/storage';
 import { useSession } from 'next-auth/react';
+import { addEmoji } from '../utils/addEmoji';
 
 function Input({ placeholder }) {
   const [input, setInput] = React.useState('');
@@ -41,8 +42,14 @@ function Input({ placeholder }) {
     });
 
     const imageRef = ref(storage, `posts/${docRef.id}/image`);
-
     if (selectedFile) {
+      console.log(
+        '%cMyProject%cline:61%cimageRef',
+        'color:#fff;background:#ee6f57;padding:3px;border-radius:2px',
+        'color:#fff;background:#1f3c88;padding:3px;border-radius:2px',
+        'color:#fff;background:rgb(60, 79, 57);padding:3px;border-radius:2px',
+        imageRef
+      );
       await uploadString(imageRef, selectedFile, 'data_url').then(async () => {
         const downloadURL = await getDownloadURL(imageRef);
         await updateDoc(doc(db, 'posts', docRef.id), {
@@ -68,12 +75,8 @@ function Input({ placeholder }) {
     };
   };
 
-  const addEmoji = (e) => {
-    let sym = e.unified.split('-');
-    let codesArray = [];
-    sym.forEach((el) => codesArray.push('0x' + el));
-    let emoji = String.fromCodePoint(...codesArray);
-    setInput(input + emoji);
+  const handleAddEmoji = (e) => {
+    addEmoji(e, input, setInput, showEmojis);
     setShowEmojis(false);
   };
 
@@ -88,7 +91,6 @@ function Input({ placeholder }) {
         src={session.user.image}
         alt='profile pic'
         className='h-11 w-11 rounded-full cursor-pointer'
-        // onClick={signOut}
       />
       <div className='divide-y divide-gray-700 w-full'>
         <div className={``}>
@@ -150,7 +152,7 @@ function Input({ placeholder }) {
 
               {showEmojis && (
                 <Picker
-                  onSelect={addEmoji}
+                  onSelect={handleAddEmoji}
                   style={{
                     position: 'absolute',
                     marginTop: '465px',

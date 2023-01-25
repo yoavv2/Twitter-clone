@@ -21,9 +21,11 @@ import {
   doc,
   onSnapshot,
   serverTimestamp,
+  updateDoc,
 } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadString } from '@firebase/storage';
 import Link from 'next/link';
+import { addEmoji } from '../utils/addEmoji';
 
 function Modal() {
   const { data: session } = useSession();
@@ -57,9 +59,19 @@ function Modal() {
       timestamp: serverTimestamp(),
     });
 
-    const imageRef = ref(storage, `posts/${docRef.id}/image`);
+    const imageRef = ref(
+      storage,
+      `posts/${postId}/comments/${docRef.id}/image`
+    );
 
     if (selectedFile) {
+      console.log(
+        '%cMyProject%cline:61%cimageRef',
+        'color:#fff;background:#ee6f57;padding:3px;border-radius:2px',
+        'color:#fff;background:#1f3c88;padding:3px;border-radius:2px',
+        'color:#fff;background:rgb(60, 79, 57);padding:3px;border-radius:2px',
+        'lol'
+      );
       await uploadString(imageRef, selectedFile, 'data_url').then(async () => {
         const downloadURL = await getDownloadURL(imageRef);
 
@@ -74,12 +86,8 @@ function Modal() {
     router.push(`/${postId}`);
   };
 
-  const addEmoji = (e) => {
-    let sym = e.unified.split('-');
-    let codesArray = [];
-    sym.forEach((el) => codesArray.push('0x' + el));
-    let emoji = String.fromCodePoint(...codesArray);
-    setComment(comment + emoji);
+  const handleAddEmoji = (e) => {
+    addEmoji(e, comment, setComment, showEmojis);
     setShowEmojis(false);
   };
 
@@ -191,6 +199,23 @@ function Modal() {
                         rows='10'
                         className='bg-transparent outline-none text-[#d9d9d9] text-lg placeholder-gray-500 tracking-wide w-full min-h-[80px] resize-none'
                       />
+                      {selectedFile && (
+                        <div className='relative'>
+                          <div
+                            className='absolute w-8 h-8 bg-[#15181c] hover:bg-[#272c26] bg-opacity-75 
+                rounded-full flex items-center justify-center top-1 left-1 cursor-pointer'
+                            onClick={() => setSelectedFile(null)}
+                          >
+                            <XIcon className='text-white h-5' />
+                          </div>
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={selectedFile}
+                            alt=''
+                            className='rounded-2xl max-h-80 object-contain'
+                          />
+                        </div>
+                      )}
                       <div className='flex items-center justify-between pt-2.5 relative'>
                         <div className='flex items-center'>
                           <div
@@ -221,7 +246,7 @@ function Modal() {
                         </div>
                         {showEmojis && (
                           <Picker
-                            onSelect={addEmoji}
+                            onSelect={handleAddEmoji}
                             style={{
                               position: 'absolute',
                               top: -430,
@@ -235,7 +260,7 @@ function Modal() {
                         <button
                           type='submit'
                           onClick={sendComment}
-                          disabled={!comment.trim()}
+                          disabled={!comment.trim() && !selectedFile}
                           className='bg-[#1d9bf0] 
                         text-white rounded-full px-4 py-1.5 font-bold
                          shadow-md hover:bg-[#1a8cd8] disabled:hover:bg-[#1d9bf0]
