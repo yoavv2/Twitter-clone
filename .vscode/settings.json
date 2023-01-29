@@ -1,5 +1,5 @@
 {
   "cSpell.language": "en,en-US",
-  "dotenv.enableAutocloaking": true,
+  "dotenv.enableAutocloaking": false,
   "cSpell.words": ["Strongsecret"]
 }
