@@ -6,16 +6,6 @@ import DiscordProvider from 'next-auth/providers/discord';
 // import FacebookProvider from 'next-auth/providers/facebook';
 // import TwitterProvider from 'next-auth/providers/twitter';
 export default NextAuth({
-  callbacks: {
-    async session({ session, token }) {
-      session.user.tag = session.user.name
-        .split(' ')
-        .join('')
-        .toLocaleLowerCase();
-      session.user.uid = token.sub;
-      return session;
-    },
-  },
   secret: process.env.JWT_SECRET,
   session: {
     jwt: true,
@@ -45,4 +35,14 @@ export default NextAuth({
     //   clientSecret: process.env.FACEBOOK_SECRET,
     // }),
   ],
+  callbacks: {
+    async session({ session, token }) {
+      session.user.tag = session.user.name
+        .split(' ')
+        .join('')
+        .toLocaleLowerCase();
+      session.user.uid = token.sub;
+      return session;
+    },
+  },
 });
