@@ -7,9 +7,7 @@ import DiscordProvider from 'next-auth/providers/discord';
 // import TwitterProvider from 'next-auth/providers/twitter';
 export default NextAuth({
   secret: process.env.JWT_SECRET,
-  session: {
-    jwt: true,
-  },
+
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
@@ -35,6 +33,9 @@ export default NextAuth({
     //   clientSecret: process.env.FACEBOOK_SECRET,
     // }),
   ],
+  session: {
+    jwt: true,
+  },
   callbacks: {
     async session({ session, token }) {
       session.user.tag = session.user.name
