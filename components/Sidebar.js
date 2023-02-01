@@ -62,11 +62,11 @@ function Sidebar() {
           <SidebarLink text='More' Icon={DotsCircleHorizontalIcon} />
         </li>
       </ul>
-      <button className='hidden xl:inline ml-auto bg-[#1d9bf0] text-white rounded-full w-56 h-[52px] text-lg font-bold shadow-md hover:bg-[#1a8cd8]'>
+      <button className='hidden xl:inline ml-auto bg-[#1d9bf0] text-white rounded-full w-56 h-[60px] text-lg font-bold shadow-md hover:bg-[#1a8cd8]'>
         Tweet
       </button>
       <button
-        className='w-56 h-[52px] text-[#d9d9d9] flex items-center justify-between mt-auto hoverAnimation xl:ml-auto xl:-mr-5'
+        className='w-56 h-[70px] text-[#d9d9d9] flex items-center justify-between mt-auto mb-5 hoverAnimation xl:ml-auto xl:-mr-5'
         onClick={signOut}
       >
         {/* eslint-disable-next-line @next/next/no-img-element  */}
