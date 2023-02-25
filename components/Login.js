@@ -1,7 +1,6 @@
 import { signIn } from 'next-auth/react';
 
 function Login({ providers, csrfToken }) {
-  console.log('%cLogin.js line:4 csrfToken', 'color: #007acc;', csrfToken);
   return (
     <div
       className='flex sm:flex-col lg:flex-row lg:w-5/12 mx-auto my-auto sm:min-h-screen
