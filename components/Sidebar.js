@@ -70,7 +70,7 @@ function Sidebar() {
         Tweet
       </button>
       <button
-        className='w-56 h-[70px] text-[#d9d9d9] flex items-center justify-between mt-auto mb-5 hoverAnimation xl:ml-auto xl:-mr-5'
+        className='xl:w-56 h-[70px] text-[#d9d9d9] flex items-center justify-between mt-auto mb-5 hoverAnimation xl:ml-auto xl:-mr-5'
         onClick={signOut}
       >
         {/* eslint-disable-next-line @next/next/no-img-element  */}
@@ -84,7 +84,7 @@ function Sidebar() {
           <h4 className='font-bold'>{session?.user.name}</h4>
           <p className='text-[#6e767d]'>@{session?.user.tag}</p>
         </div>
-        <DotsHorizontalIcon className='h-5 hidden xl:inline ml-10' />
+        <DotsHorizontalIcon className='hidden h-5 xl:inline ml-10' />
       </button>
     </nav>
   );
