@@ -31,8 +31,9 @@ export default function Home({
       </Head>
       <main className='bg-black min-h-screen flex max-w-[1500px] mx-auto'>
         <Sidebar />
-
-        <Feed />
+        <div className='ml-20 xl:ml-0'>
+          <Feed />
+        </div>
 
         <Widgets
           trendingResults={trendingResults}

@@ -81,13 +81,13 @@ function Post({ name, id, post, postPage }) {
       <img
         src={post?.userImg}
         alt='Profile Pic'
-        className='h-11 w-11 rounded-full mr-10'
+        className='flex-1 h-11 w-11 rounded-full mr-10'
       />
     ) : (
       <img
         src={post?.userImg}
         alt='user image'
-        className='h-11 w-11 rounded-full mr-10'
+        className='flex-1 h-11 w-11 rounded-full mr-10'
       />
     );
   };

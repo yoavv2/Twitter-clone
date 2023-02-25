@@ -73,10 +73,11 @@ const PostPage = ({ trendingResults, followResults, providers }) => {
             </div>
             Tweet
           </div>
-
-          <Post id={id} post={post} postPage />
+          <div className='ml-20 md:ml-0'>
+            <Post id={id} post={post} postPage />
+          </div>
           {comments.length > 0 && (
-            <div className='pb-72'>
+            <div className='pb-72  ml-20 md:ml-0'>
               {comments.map((comment) => (
                 <Comment
                   key={comment.id}

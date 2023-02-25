@@ -21,8 +21,8 @@ function Sidebar() {
 
   return (
     <nav
-      className='bg-black sm:flex flex-col items-center xl:items-start  w-20  p-2 fixed h-full border-1
-    '
+      className='bg-black flex flex-col items-center xl:items-start w-20 p-2 fixed h-full 
+       '
     >
       <div
         className='flex items-center justify-center w-14 h-14 hoverAnimation p-0 xl:ml-24'
