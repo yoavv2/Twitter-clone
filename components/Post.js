@@ -84,8 +84,8 @@ function Post({ name, id, post, postPage }) {
       {!postPage && (
         <img
           src={post?.userImg}
-          alt=''
-          className='h-11 w-11 rounded-full mr-4'
+          alt='user image'
+          className='h-11 w-11 rounded-full mr-10'
         />
       )}
       <div className='flex flex-col space-y-2 w-full'>
