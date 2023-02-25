@@ -1,5 +1,10 @@
 import Head from 'next/head';
-import { getProviders, getSession, useSession } from 'next-auth/react';
+import {
+  getCsrfToken,
+  getProviders,
+  getSession,
+  useSession,
+} from 'next-auth/react';
 import Feed from '../components/Feed';
 import Sidebar from '../components/Sidebar';
 import Login from '../components/Login';
@@ -8,10 +13,15 @@ import { useRecoilState } from 'recoil';
 import { modalState } from '../atoms/modalAtom';
 import Widgets from '../components/Widgets';
 
-export default function Home({ trendingResults, followResults, providers }) {
+export default function Home({
+  trendingResults,
+  followResults,
+  providers,
+  csrfToken,
+}) {
   const { data: session } = useSession();
   const [isOpen] = useRecoilState(modalState);
-  if (!session) return <Login providers={providers} />;
+  if (!session) return <Login providers={providers} csrfToken={csrfToken} />;
   return (
     <>
       <Head>
@@ -73,30 +83,19 @@ export async function getServerSideProps(context) {
 
   const providers = await getProviders();
   const session = await getSession(context);
-
+  const csrfToken = await getCsrfToken(context);
   return {
     props: {
       trendingResults,
       followResults,
       providers,
       session,
+      csrfToken,
     },
   };
 }
 
-async function fetchData(url) {
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(response.statusText);
-    }
-    return await response.json();
-  } catch (error) {
-    throw new Error(`Failed to fetch data from the URL: ${error.message}`);
-  }
-}
-
-// Generic function to throw if any errors occured, or return the responses
+// Generic function to throw if any errors occurred, or return the responses
 // if no errors happened
 function handleResults(results) {
   const errors = results
@@ -114,6 +113,5 @@ function handleResults(results) {
 async function getPageData() {
   const results = await Promise.allSettled([fetchUser(), fetchProduct()]);
 
-  // Nicer on the eyes
   const [user, product] = handleResults(results);
 }

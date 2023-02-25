@@ -2,12 +2,13 @@ import NextAuth from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 import DiscordProvider from 'next-auth/providers/discord';
-// import Auth0Provider from 'next-auth/providers/auth0';
-// import FacebookProvider from 'next-auth/providers/facebook';
-// import TwitterProvider from 'next-auth/providers/twitter';
-export default NextAuth({
-  secret: process.env.JWT_SECRET,
+import CredentialsProvider from 'next-auth/providers/credentials';
 
+export default NextAuth({
+  secret: process.env.NEXTAUTH_SECRET,
+  jwt: {
+    secret: process.env.JWT_SECRET,
+  },
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
@@ -24,19 +25,57 @@ export default NextAuth({
       clientId: process.env.DISCORD_CLIENT_ID,
       clientSecret: process.env.DISCORD_CLIENT_SECRET,
     }),
-    // TwitterProvider({
-    //   clientId: process.env.TWITTER_ID,
-    //   clientSecret: process.env.TWITTER_SECRET,
-    // }),
-    // FacebookProvider({
-    //   clientId: process.env.FACEBOOK_ID,
-    //   clientSecret: process.env.FACEBOOK_SECRET,
-    // }),
+    CredentialsProvider({
+      id: 'credentials',
+      name: 'twitter-clone',
+      credentials: {
+        email: {
+          label: 'email',
+          type: 'email',
+          placeholder: 'email@example.com',
+        },
+        password: {
+          label: 'Password',
+          type: 'password',
+          placeholder: 'password',
+        },
+      },
+      async authorize(credentials) {
+        console.log(
+          '%c[...nextauth].js line:38 credentials',
+          'color: #007acc;',
+          credentials
+        );
+        const { email, password } = credentials;
+        if (email !== 'guest@gmail.com' || password !== '123456') {
+          return null;
+        }
+        return {
+          id: 1234,
+          name: 'guest',
+          email: 'guest@gmail.com',
+          image:
+            'https://api.dicebear.com/5.x/adventurer/svg?backgroundType=gradientLinear,solid',
+        };
+      },
+    }),
   ],
   session: {
     jwt: true,
   },
   callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        return {
+          ...token,
+          accessToken: user.token,
+          refreshToken: user.refreshToken,
+        };
+      }
+
+      return token;
+    },
+
     async session({ session, token }) {
       session.user.tag = session.user.name
         .split(' ')

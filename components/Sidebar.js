@@ -18,6 +18,7 @@ function Sidebar() {
   const router = useRouter();
 
   const pathname = router.pathname;
+  
   return (
     <nav className='hidden sm:flex flex-col items-center xl:items-start xl:w-[340px] p-2 fixed h-full'>
       <div
@@ -75,6 +76,7 @@ function Sidebar() {
           alt='profile_pic'
           className='h-10 w-10 rounded-full xl:mr-2.5'
         />
+
         <div className='hidden xl:inline leading-5'>
           <h4 className='font-bold'>{session?.user.name}</h4>
           <p className='text-[#6e767d]'>@{session?.user.tag}</p>
