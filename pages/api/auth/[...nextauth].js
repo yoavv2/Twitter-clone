@@ -33,13 +33,13 @@ export default NextAuth({
         email: {
           label: 'email',
           type: 'email',
-          // value: 'guest@gmail.com',
+          value: 'guest@gmail.com',
           placeholder: 'email@example.com',
         },
         password: {
           label: 'Password',
           type: 'password',
-          // value: '123456',
+          value: '123456',
           placeholder: 'password',
         },
       },

@@ -1,13 +1,13 @@
-import React from 'react';
+// import React from 'react';
 import { signIn } from 'next-auth/react';
 
 function Login({ providers, csrfToken }) {
-  const [userInfo, setUserInfo] = React.useState({ email: '', password: '' });
+  // const [userInfo, setUserInfo] = React.useState({ email: '', password: '' });
   const handleSubmit = async (e) => {
-    e.preventdefault();
+    e.preventDefault();
     await signIn('credentials', {
-      email: userInfo.email,
-      password: userInfo.password,
+      email: 'guest@gmail.com',
+      password: '123456',
       callbackUrl: '/',
     });
   };
@@ -67,7 +67,7 @@ function Login({ providers, csrfToken }) {
             className='mt-6'
           >
             <input name='csrfToken' type='hidden' defaultValue={csrfToken} />
-            <div className='mb-2'>
+            {/* <div className='mb-2'>
               <label
                 htmlFor='email'
                 className='block text-sm font-semibold text-gray-400'
@@ -100,7 +100,7 @@ function Login({ providers, csrfToken }) {
                 }
                 className='block w-full px-4 py-2 mt-2 text-[#1d9bf0] bg-white border rounded-md focus:border-sky-400 focus:ring-sky-300 focus:outline-none focus:ring focus:ring-opacity-40'
               />
-            </div>
+            </div> */}
 
             <div className='mt-6'>
               <button
@@ -109,7 +109,7 @@ function Login({ providers, csrfToken }) {
               >
                 <span className='w-48 h-48 rounded rotate-[-40deg] bg-[#1d9bf0] absolute bottom-0 left-0 -translate-x-full ease-out duration-500 transition-all translate-y-full mb-9 ml-9 group-hover:ml-0 group-hover:mb-32 group-hover:translate-x-0'></span>
                 <span className='relative w-full text-center text-black transition-colors duration-300 ease-in-out group-hover:text-white'>
-                  Log in
+                  Log in as a guest
                 </span>
               </button>
             </div>
