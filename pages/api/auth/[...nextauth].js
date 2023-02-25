@@ -54,7 +54,7 @@ export default NextAuth({
           name: 'guest',
           email: 'guest@gmail.com',
           image:
-            'https://api.dicebear.com/5.x/adventurer/svg?backgroundType=gradientLinear,solid',
+            'https://api.dicebear.com/5.x/adventurer/svg?seed=Zoey&backgroundType=gradientLinear&featuresProbability=100&hair=short07,short08&skinColor=ecad80',
         };
       },
     }),
