@@ -27,19 +27,23 @@ export default NextAuth({
     }),
     CredentialsProvider({
       id: 'credentials',
-      name: 'twitter-clone',
+      name: 'credentials',
+      type: 'credentials',
       credentials: {
         email: {
           label: 'email',
           type: 'email',
+          // value: 'guest@gmail.com',
           placeholder: 'email@example.com',
         },
         password: {
           label: 'Password',
           type: 'password',
+          // value: '123456',
           placeholder: 'password',
         },
       },
+
       async authorize(credentials) {
         const { email, password } = credentials;
         if (email !== 'guest@gmail.com' || password !== '123456') {

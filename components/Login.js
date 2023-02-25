@@ -1,6 +1,16 @@
+import React from 'react';
 import { signIn } from 'next-auth/react';
 
 function Login({ providers, csrfToken }) {
+  const [userInfo, setUserInfo] = React.useState({ email: '', password: '' });
+  const handleSubmit = async (e) => {
+    e.preventdefault();
+    await signIn('credentials', {
+      email: userInfo.email,
+      password: userInfo.password,
+      callbackUrl: '/',
+    });
+  };
   return (
     <div
       className='flex sm:flex-col lg:flex-row lg:w-5/12 mx-auto my-auto sm:min-h-screen
@@ -53,9 +63,10 @@ function Login({ providers, csrfToken }) {
           <form
             method='post'
             action='/api/auth/callback/credentials'
+            onSubmit={handleSubmit}
             className='mt-6'
           >
-            {/* <input name='csrfToken' type='hidden' defaultValue={csrfToken} /> */}
+            <input name='csrfToken' type='hidden' defaultValue={csrfToken} />
             <div className='mb-2'>
               <label
                 htmlFor='email'
@@ -66,6 +77,10 @@ function Login({ providers, csrfToken }) {
               <input
                 type='email'
                 name='email'
+                value={userInfo.email}
+                onChange={({ target }) =>
+                  setUserInfo({ ...userInfo, email: target.value })
+                }
                 className='block w-full px-4 py-2 mt-2 text-[#1d9bf0] bg-white border rounded-md focus:border-sky-400 focus:ring-sky-300 focus:outline-none focus:ring focus:ring-opacity-40'
               />
             </div>
@@ -79,14 +94,18 @@ function Login({ providers, csrfToken }) {
               <input
                 type='password'
                 name='password'
+                value={userInfo.password}
+                onChange={({ target }) =>
+                  setUserInfo({ ...userInfo, password: target.value })
+                }
                 className='block w-full px-4 py-2 mt-2 text-[#1d9bf0] bg-white border rounded-md focus:border-sky-400 focus:ring-sky-300 focus:outline-none focus:ring focus:ring-opacity-40'
               />
             </div>
+
             <div className='mt-6'>
               <button
-                type='button'
+                type='submit'
                 className='w-full tracking-wide relative inline-flex items-center justify-start px-6 py-3 my-3 overflow-hidden font-medium transition-all bg-white rounded hover:bg-white group'
-                onClick={() => signIn('credentials', { callbackUrl: '/' })}
               >
                 <span className='w-48 h-48 rounded rotate-[-40deg] bg-[#1d9bf0] absolute bottom-0 left-0 -translate-x-full ease-out duration-500 transition-all translate-y-full mb-9 ml-9 group-hover:ml-0 group-hover:mb-32 group-hover:translate-x-0'></span>
                 <span className='relative w-full text-center text-black transition-colors duration-300 ease-in-out group-hover:text-white'>
