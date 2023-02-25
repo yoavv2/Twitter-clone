@@ -76,27 +76,30 @@ function Post({ name, id, post, postPage }) {
     }
   };
 
+  const renderImage = () => {
+    return postPage ? (
+      <img
+        src={post?.userImg}
+        alt='Profile Pic'
+        className='h-11 w-11 rounded-full mr-10'
+      />
+    ) : (
+      <img
+        src={post?.userImg}
+        alt='user image'
+        className='h-11 w-11 rounded-full mr-10'
+      />
+    );
+  };
+
   return (
     <div
       className='p-3 flex cursor-pointer border-b border-gray-700'
       onClick={() => router.push(`/${id}`)}
     >
-      {!postPage && (
-        <img
-          src={post?.userImg}
-          alt='user image'
-          className='h-11 w-11 rounded-full mr-10'
-        />
-      )}
+      {renderImage()}
       <div className='flex flex-col space-y-2 w-full'>
         <div className={`flex ${!postPage && 'justify-between'}`}>
-          {postPage && (
-            <img
-              src={post?.userImg}
-              alt='Profile Pic'
-              className='h-11 w-11 rounded-full mr-4'
-            />
-          )}
           <div className='text-[#6e767d]'>
             <div className='inline-block group'>
               <h4
@@ -137,9 +140,9 @@ function Post({ name, id, post, postPage }) {
           />
         )}
         <div
-          className={`text-[#6e767d] flex justify-between w-10/12 ${
-            postPage && 'mx-auto'
-          }`}
+          className={`text-[#6e767d] flex justify-between w-10/12 
+          ${postPage && 'mx-auto'}
+          `}
         >
           <div
             className='flex items-center space-x-1 group'
