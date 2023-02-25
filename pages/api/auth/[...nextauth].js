@@ -5,10 +5,10 @@ import DiscordProvider from 'next-auth/providers/discord';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
 export default NextAuth({
-  secret: process.env.NEXTAUTH_SECRET,
-  jwt: {
-    secret: process.env.JWT_SECRET,
-  },
+  secret: process.env.JWT_SECRET,
+  // jwt: {
+  //   secret: process.env.JWT_SECRET,
+  // },
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
@@ -41,11 +41,6 @@ export default NextAuth({
         },
       },
       async authorize(credentials) {
-        console.log(
-          '%c[...nextauth].js line:38 credentials',
-          'color: #007acc;',
-          credentials
-        );
         const { email, password } = credentials;
         if (email !== 'guest@gmail.com' || password !== '123456') {
           return null;
