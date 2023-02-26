@@ -6,7 +6,6 @@ import {
   useSession,
 } from 'next-auth/react';
 import Feed from '../components/Feed';
-import Sidebar from '../components/Sidebar';
 import Login from '../components/Login';
 import Modal from '../components/Modal';
 import { useRecoilState } from 'recoil';
@@ -30,7 +29,6 @@ export default function Home({
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <main className='bg-black min-h-screen flex max-w-[1500px] mx-auto'>
-        {/* <Sidebar /> */}
         <div className='ml-24 xl:ml-0'>
           <Feed />
         </div>
