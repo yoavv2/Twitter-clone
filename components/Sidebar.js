@@ -21,7 +21,7 @@ function Sidebar() {
 
   return (
     <nav
-      className='bg-black flex flex-col items-center xl:items-start w-20 p-2 fixed h-full 
+      className=' flex flex-col items-center xl:items-start w-20 p-2 fixed h-full 
        '
     >
       <div

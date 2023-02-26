@@ -21,8 +21,8 @@ function Feed() {
 
   return (
     <div
-      className='md:ml-0 text-white flex-grow border-l border-r
-     border-gray-700 max-w-2xl sm:ml-[73px] xl:ml-[370px]'
+      className='md:ml-0 text-white flex-grow border-l md:border-r
+     border-gray-700  max-w-2xl sm:ml-[73px] xl:ml-[370px]'
     >
       <div className='text-[#d9d9d9] flex items-center sm:justify-between py-2 px-3 sticky top-0 z-50 bg-black border-b border-gray-700'>
         <h2 className='text-lg sm:text-xl font-bold'>Home</h2>
@@ -31,7 +31,7 @@ function Feed() {
         </div>
       </div>
       <Input placeholder='Whats happening?' />
-      <div className='pb-72 w-full'>
+      <div className=' w-full'>
         {posts.map((post) => (
           <Post key={post.id} name={post.tag} id={post.id} post={post.data()} />
         ))}
