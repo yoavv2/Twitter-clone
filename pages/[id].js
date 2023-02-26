@@ -11,7 +11,6 @@ import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
 import { modalState } from '../atoms/modalAtom';
 import Modal from '../components/Modal';
-import Sidebar from '../components/Sidebar';
 import Login from '../components/Login';
 import Post from '../components/Post';
 import { db } from '../firebase';
@@ -59,7 +58,6 @@ const PostPage = ({ trendingResults, followResults, providers }) => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <main className='bg-black min-h-screen flex max-w-[1500px] mx-auto'>
-        {/* <Sidebar /> */}
         <div className='ml-24 xl:ml-0'>
           <div
             className='md:ml-0 text-white flex-grow border-l md:border-r
@@ -67,10 +65,10 @@ const PostPage = ({ trendingResults, followResults, providers }) => {
           >
             <div
               className='flex items-center px-1.5 py-2  border-b border-gray-700 text-[#d9d9d9]
-           font-semibold text-xl gap-x-4 sticky top-0 z-50 bg-black'
+           font-semibold text-xl gap-x-4 sticky top-0 z-50 bg-black opacity-90'
             >
               <div
-                className='hoverAnimation w-9 h-9 flex items-center justify-center xl:px-0'
+                className='hoverAnimation w-9 h-9 flex items-center justify-center xl:px-0 '
                 onClick={() => router.push('/')}
               >
                 <ArrowLeftIcon className='h-5 text-white' />
