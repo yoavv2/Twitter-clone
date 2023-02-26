@@ -18,12 +18,9 @@ function Sidebar() {
   const router = useRouter();
 
   const pathname = router.pathname;
-
+  // flex flex-col items-center xl:items-start p-2 fixed h-full
   return (
-    <nav
-      className=' flex flex-col items-center xl:items-start w-20 p-2 fixed h-full 
-       '
-    >
+    <nav className='flex flex-col h-full fixed p-2 items-center xl:items-start'>
       <div
         className='flex items-center justify-center w-14 h-14 hoverAnimation p-0 xl:ml-24'
         onClick={() => router.push('/')}
@@ -35,7 +32,7 @@ function Sidebar() {
           className='h-10 w-10'
         />
       </div>
-      <ul className='space-y-2.5 mt-4 mb-2.5 xl:ml-24'>
+      <ul className='flex flex-col items-center w-20 xl:items-start md:w-full space-y-2.5 mt-4 mb-2.5 xl:ml-24'>
         <li>
           <SidebarLink
             text='Home'
@@ -70,7 +67,7 @@ function Sidebar() {
         Tweet
       </button>
       <button
-        className='xl:w-56 h-[70px] text-[#d9d9d9] flex items-center justify-between mt-auto mb-5 hoverAnimation xl:ml-auto xl:-mr-5'
+        className='xl:w-56 h-[70px] text-[#d9d9d9] flex items-center justify-center xl:justify-between mt-auto mb-5 hoverAnimation xl:ml-auto xl:-mr-5'
         onClick={signOut}
       >
         {/* eslint-disable-next-line @next/next/no-img-element  */}
