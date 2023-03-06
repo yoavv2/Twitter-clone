@@ -52,24 +52,48 @@ export async function getServerSideProps(context) {
   // const [trendingResults, followResults] = results;
   const trendingResults = [
     {
-      heading: 'T20 World Cup 2021 Â· LIVE',
+      heading: 'React 18 Alpha Release',
       description:
-        'NZvAUS: New Zealand and Australia clash in the T20 World Cup final',
-      img: 'https://rb.gy/d9yjtu',
-      tags: ['#T20WorldCupFinal, ', 'Kane Williamson'],
+        'Get a sneak peek at the new features and improvements in React 18!',
+      img: 'https://rb.gy/ftuqbx',
+      tags: ['#React18', '#webdevelopment', '#javascript'],
     },
     {
-      heading: 'Trending in United Arab Emirates',
-      description: '#earthquake',
-      img: 'https://rb.gy/jvuy4v',
-      tags: ['#DubaiAirshow, ', '#gessdubai'],
+      heading: 'Google Introduces Material You Design System',
+      description:
+        'Explore the new design language and tools for building beautiful web apps!',
+      img: 'https://rb.gy/jsh5hn',
+      tags: ['#MaterialYou', '#webdesign', '#ux'],
     },
     {
-      heading: 'Trending in Digital Creators',
-      description: 'tubbo and quackity',
-      img: '',
-      tags: ['QUACKITY AND TUBBO,'],
+      heading: 'GitHub Adds Dark Theme for Web Interface',
+      description:
+        'Switch to the new dark mode and reduce eye strain while browsing your code!',
+      img: 'https://rb.gy/gcquzc',
+      tags: ['#GitHub', '#webdevelopment', '#ui'],
     },
+    {
+      heading: 'Tailwind CSS Becomes Popular CSS Framework',
+      description:
+        'Learn how to use the utility-first CSS framework and build responsive websites quickly!',
+      img: 'https://rb.gy/akvthc',
+      tags: ['#TailwindCSS', '#css', '#webdesign'],
+    },
+    {
+      heading: 'Next.js 12 Released with New Features',
+      description:
+        'Check out the latest version of the popular React framework for building server-side rendered apps!',
+      img: 'https://rb.gy/s6w5cg',
+      tags: ['#NextJS', '#webdevelopment', '#javascript'],
+    },
+    {
+      heading: 'Qwik Simplifies Web App Development',
+      description:
+        'Discover the new framework for building lightweight and fast web apps!',
+      img: 'https://rb.gy/mjvnc1',
+      tags: ['#Qwik', '#webdevelopment', '#javascript'],
+    },
+    // Add more objects here if needed
   ];
   const followResults = [
     { userImg: 'https://rb.gy/urakiy', username: 'SpaceX', tag: '@SpaceX' },
