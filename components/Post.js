@@ -28,6 +28,7 @@ import Moment from 'react-moment';
 import { useRecoilState } from 'recoil';
 import { modalState, postIdState } from '../atoms/modalAtom';
 import { db } from '../firebase';
+import Link from 'next/link';
 
 function Post({ name, id, post, postPage }) {
   const { data: session } = useSession();
@@ -91,14 +92,22 @@ function Post({ name, id, post, postPage }) {
       />
     );
   };
+  function isLink(text) {
+    try {
+      new URL(text);
+      return true;
+    } catch {
+      return false;
+    }
+  }
 
   return (
-    <div
-      className='p-3 min-w-full flex cursor-pointer border-t border-gray-700'
-      onClick={() => router.push(`/${id}`)}
-    >
+    <div className='p-3 min-w-full flex cursor-pointer border-t border-gray-700'>
       {renderImage()}
-      <div className='flex flex-col space-y-2 w-full'>
+      <div
+        className='flex flex-col space-y-2 w-full'
+        onClick={() => router.push(`/${id}`)}
+      >
         <div className={`flex ${!postPage && 'justify-between'}`}>
           <div className='text-[#6e767d]'>
             <div className='inline-block group'>
@@ -120,8 +129,19 @@ function Post({ name, id, post, postPage }) {
               <Moment fromNow>{post?.timestamp?.toDate()}</Moment>
             </span>
             {!postPage && (
-              <p className='text-[#d9d9d9] text-[15px] sm:text-base mt-0.5'>
-                {post?.text}
+              <p className='text-[#d9d9d9] text-[15px] sm:text-base mt-0.5 '>
+                {isLink(post?.text) ? (
+                  <Link href={post.text}>
+                    <a
+                      className='hover:underline text-blue-300'
+                      target='_blank'
+                    >
+                      {post.text}
+                    </a>
+                  </Link>
+                ) : (
+                  <>{post?.text}</>
+                )}
               </p>
             )}
           </div>
@@ -130,7 +150,17 @@ function Post({ name, id, post, postPage }) {
           </div>
         </div>
         {postPage && (
-          <p className='text-[#d9d9d9] mt-0.5 text-xl'>{post?.text}</p>
+          <p className='text-[#d9d9d9] text-[15px] sm:text-base mt-0.5 '>
+            {isLink(post?.text) ? (
+              <Link href={post.text}>
+                <a className='hover:underline text-blue-300' target='_blank'>
+                  {post.text}
+                </a>
+              </Link>
+            ) : (
+              <>{post?.text}</>
+            )}
+          </p>
         )}
         {post?.image && (
           <img
