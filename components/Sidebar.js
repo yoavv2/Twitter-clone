@@ -20,7 +20,7 @@ function Sidebar() {
   const pathname = router.pathname;
   // flex flex-col items-center xl:items-start p-2 fixed h-full
   return (
-    <nav className='bg-black flex flex-col h-full fixed p-2 items-center xl:items-start xl:ml-24'>
+    <nav className='bg-black flex flex-col h-full fixed p-2 items-center xl:items-start xl:ml-24 border-gray-700 border-r'>
       <div
         className='flex items-center justify-center w-14 h-14 hoverAnimation p-0 mx-auto'
         onClick={() => router.push('/')}
@@ -67,7 +67,7 @@ function Sidebar() {
         Tweet
       </button>
       <button
-        className='xl:w-56 h-[70px] text-[#d9d9d9] flex items-center justify-center xl:justify-between mt-auto mb-5 hoverAnimation xl:ml-auto xl:-mr-5'
+        className='xl:w-56 h-[70px] text-[#d9d9d9] flex items-center justify-center xl:justify-between mt-auto mb-5 hoverAnimation  xl:-mr-5'
         onClick={signOut}
       >
         {/* eslint-disable-next-line @next/next/no-img-element  */}

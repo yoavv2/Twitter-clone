@@ -140,7 +140,7 @@ function Post({ name, id, post, postPage }) {
           />
         )}
         <div
-          className={`text-[#6e767d] flex justify-between w-10/12 
+          className={`text-[#6e767d] flex justify-between w-10/12
           ${postPage && 'mx-auto'}
           `}
         >
