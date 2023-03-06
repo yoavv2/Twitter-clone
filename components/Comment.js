@@ -50,9 +50,15 @@ function Comment({ comment, id }) {
               />
             )}
           </div>
-          <div className='icon group flex-shrink-0'>
+          <a
+            href={comment?.image ? comment.image : ''}
+            target='_blank'
+            className='icon group flex-shrink-0 ml-auto'
+            download
+            rel='noreferrer'
+          >
             <DotsHorizontalIcon className='h-5 text-[#6e767d] group-hover:text-[#1d9bf0]' />
-          </div>
+          </a>
         </div>
 
         <div className='text-[#6e767d] flex justify-between w-10/12'>

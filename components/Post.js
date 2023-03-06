@@ -145,9 +145,14 @@ function Post({ name, id, post, postPage }) {
               </p>
             )}
           </div>
-          <div className='icon group flex-shrink-0 ml-auto'>
+          <a
+            href={post?.image ? post.image : ''}
+            target='_blank'
+            className='icon group flex-shrink-0 ml-auto'
+            download rel="noreferrer"
+          >
             <DotsHorizontalIcon className='h-5 text-[#6e767d] group-hover:text-[#1d9bf0]' />
-          </div>
+          </a>
         </div>
         {postPage && (
           <p className='text-[#d9d9d9] text-[15px] sm:text-base mt-0.5 '>
