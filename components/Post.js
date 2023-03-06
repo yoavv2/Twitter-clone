@@ -94,7 +94,7 @@ function Post({ name, id, post, postPage }) {
 
   return (
     <div
-      className='p-3 min-w-full flex cursor-pointer border-b border-gray-700'
+      className='p-3 min-w-full flex cursor-pointer border-t border-gray-700'
       onClick={() => router.push(`/${id}`)}
     >
       {renderImage()}

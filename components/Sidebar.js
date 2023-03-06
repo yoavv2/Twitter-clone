@@ -20,9 +20,9 @@ function Sidebar() {
   const pathname = router.pathname;
   // flex flex-col items-center xl:items-start p-2 fixed h-full
   return (
-    <nav className='bg-black flex flex-col h-full fixed p-2 items-center xl:items-start'>
+    <nav className='bg-black flex flex-col h-full fixed p-2 items-center xl:items-start xl:ml-24'>
       <div
-        className='flex items-center justify-center w-14 h-14 hoverAnimation p-0 xl:ml-24'
+        className='flex items-center justify-center w-14 h-14 hoverAnimation p-0 mx-auto'
         onClick={() => router.push('/')}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -32,7 +32,7 @@ function Sidebar() {
           className='h-10 w-10'
         />
       </div>
-      <ul className='flex flex-col items-center w-20 xl:items-start md:w-full space-y-2.5 mt-4 mb-2.5 xl:ml-24'>
+      <ul className='flex flex-col items-center w-20 xl:items-start xl:w-full space-y-2.5 mt-4 mb-2.5 '>
         <li>
           <SidebarLink
             text='Home'

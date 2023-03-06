@@ -10,8 +10,12 @@ export default function App({
   return (
     <RecoilRoot>
       <SessionProvider session={session}>
-        <div className='bg-black min-h-screen flex max-w-[1500px] mx-auto'>
-          {session && <Sidebar />}
+        <div className='flex'>
+          {session && (
+            <div className='ml-auto'>
+              <Sidebar />
+            </div>
+          )}
           <Component {...pageProps} />
         </div>
       </SessionProvider>

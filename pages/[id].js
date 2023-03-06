@@ -61,7 +61,7 @@ const PostPage = ({ trendingResults, followResults, providers }) => {
         <div className='ml-24 xl:ml-0'>
           <div
             className='md:ml-0 text-white flex-grow border-l md:border-r
-           border-gray-700 max-w-2xl sm:ml-[73px] xl:ml-[370px]'
+           border-gray-700 max-w-2xl  xl:ml-[370px]'
           >
             <div
               className='flex items-center px-1.5 py-2  border-b border-gray-700 text-[#d9d9d9]
