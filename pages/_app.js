@@ -11,7 +11,7 @@ export default function App({
     <RecoilRoot>
       <SessionProvider session={session}>
         <>
-          <div className='mx-auto   w-3/5'>
+          <div className='mx-auto xl:w-3/5'>
             {session && (
               <div className='ml-auto'>
                 <Sidebar />
