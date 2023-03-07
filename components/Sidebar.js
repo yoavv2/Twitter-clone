@@ -20,7 +20,7 @@ function Sidebar() {
   const pathname = router.pathname;
   // flex flex-col items-center xl:items-start p-2 fixed h-full
   return (
-    <nav className='bg-black flex flex-col h-full fixed p-2 items-center xl:items-start xl:ml-24 border-gray-700 border-r'>
+    <nav className='bg-black flex flex-col h-full fixed p-2 items-center xl:items-start xl:ml-24 '>
       <div
         className='flex items-center justify-center w-14 h-14 hoverAnimation p-0 mx-auto'
         onClick={() => router.push('/')}

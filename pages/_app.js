@@ -10,14 +10,16 @@ export default function App({
   return (
     <RecoilRoot>
       <SessionProvider session={session}>
-        <div className='flex'>
-          {session && (
-            <div className='ml-auto'>
-              <Sidebar />
-            </div>
-          )}
-          <Component {...pageProps} />
-        </div>
+        <>
+          <div className='mx-auto   w-3/5'>
+            {session && (
+              <div className='ml-auto'>
+                <Sidebar />
+              </div>
+            )}
+            <Component {...pageProps} />
+          </div>
+        </>
       </SessionProvider>
     </RecoilRoot>
   );

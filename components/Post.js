@@ -102,7 +102,7 @@ function Post({ name, id, post, postPage }) {
   }
 
   return (
-    <div className='p-3 min-w-full flex cursor-pointer border-t border-gray-700'>
+    <div className='p-3 min-w-full flex cursor-pointer border border-gray-700'>
       {renderImage()}
       <div
         className='flex flex-col space-y-2 w-full'
@@ -149,7 +149,8 @@ function Post({ name, id, post, postPage }) {
             href={post?.image ? post.image : ''}
             target='_blank'
             className='icon group flex-shrink-0 ml-auto'
-            download rel="noreferrer"
+            download
+            rel='noreferrer'
           >
             <DotsHorizontalIcon className='h-5 text-[#6e767d] group-hover:text-[#1d9bf0]' />
           </a>
