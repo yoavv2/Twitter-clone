@@ -82,13 +82,13 @@ function Post({ name, id, post, postPage }) {
       <img
         src={post?.userImg}
         alt='Profile Pic'
-        className='flex-1 h-11 w-11 rounded-full mr-10'
+        className='h-11 w-11 rounded-full mr-10'
       />
     ) : (
       <img
         src={post?.userImg}
         alt='user image'
-        className='flex-1 h-11 w-11 rounded-full mr-10'
+        className='h-11 w-11 rounded-full mr-10'
       />
     );
   };
@@ -102,10 +102,10 @@ function Post({ name, id, post, postPage }) {
   }
 
   return (
-    <div className='p-3 min-w-full flex cursor-pointer border border-gray-700'>
-      {renderImage()}
+    <div className='p-3 min-w-full flex cursor-pointer  border border-gray-700 '>
+      <div>{renderImage()}</div>
       <div
-        className='flex flex-col space-y-2 w-full'
+        className='flex flex-col space-y-2 w-full '
         onClick={() => router.push(`/${id}`)}
       >
         <div className={`flex ${!postPage && 'justify-between'}`}>
